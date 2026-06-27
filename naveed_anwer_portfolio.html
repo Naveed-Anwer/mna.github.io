@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Naveed Anwer — PMCM Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--surface:#fff;--surface2:#f2f2f0;--border:#e5e5e2;--border-strong:#ccc;
+  --text:#1a1a18;--text2:#555550;--text3:#888882;
+  --accent:#185fa5;--accent-bg:#e6f1fb;--accent-text:#185fa5;
+  --green-bg:#eaf3de;--green-text:#3b6d11;
+  --amber-bg:#faeeda;--amber-text:#854f0b;
+  --purple-bg:#eeedfe;--purple-text:#3c3489;
+  --radius:10px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+a{color:var(--accent-text);text-decoration:none}
+
+/* COVER */
+.cover{width:100%;height:220px;background:linear-gradient(135deg,#1a3a5c 0%,#0f2a45 60%,#0a1f35 100%);position:relative;overflow:hidden}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 40px)}
+.cover-label{position:absolute;bottom:28px;left:40px;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase}
+
+/* PAGE LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:0 32px 80px}
+.avatar-wrap{margin-bottom:0;position:relative;margin-top:-44px;margin-bottom:-4px}
+.avatar{width:80px;height:80px;border-radius:50%;background:#1a3a5c;border:4px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:#7fb8e8;letter-spacing:1px}
+
+/* HEADER */
+.name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:60px;padding-bottom:6px}
+.name{font-size:28px;font-weight:600;color:var(--text)}
+.badge{font-size:11px;padding:3px 11px;border-radius:20px;font-weight:500;border:1px solid}
+.badge-blue{background:var(--accent-bg);color:var(--accent-text);border-color:rgba(24,95,165,.25)}
+.badge-green{background:var(--green-bg);color:var(--green-text);border-color:rgba(59,109,17,.25)}
+.tagline{font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.7}
+.meta-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px;font-size:13px;color:var(--text3)}
+.meta-item{display:flex;align-items:center;gap:6px}
+.meta-item svg{width:15px;height:15px;opacity:.6;flex-shrink:0}
+.divider{height:1px;background:var(--border);margin:24px 0}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px}
+.stat-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;border:1px solid var(--border)}
+.stat-num{font-size:24px;font-weight:600;color:var(--text)}
+.stat-label{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* TABS */
+.tab-row{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.tab-btn{font-size:13px;padding:10px 20px;border:none;background:none;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .15s;font-family:inherit}
+.tab-btn.active{color:var(--accent-text);border-bottom-color:var(--accent-text);font-weight:500}
+.tab-btn:hover:not(.active){color:var(--text2)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* FILTER */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter-btn{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s;font-family:inherit}
+.filter-btn.active,.filter-btn:hover{background:var(--accent-bg);color:var(--accent-text);border-color:rgba(24,95,165,.3)}
+
+/* PROJECT GRID */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.proj-card:hover{border-color:var(--border-strong);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.proj-img{width:100%;height:130px;background:var(--surface2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.proj-img img{width:100%;height:100%;object-fit:cover;display:none}
+.proj-img img.loaded{display:block}
+.proj-img-icon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text3);height:100%}
+.proj-img-icon svg{width:32px;height:32px;opacity:.4}
+.proj-img-icon span{font-size:10px}
+.proj-num{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500}
+.proj-body{padding:13px}
+.proj-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.4}
+.proj-sub{font-size:11px;color:var(--text3);margin-bottom:9px;line-height:1.4}
+.proj-tags{display:flex;gap:5px;flex-wrap:wrap}
+.proj-tag{font-size:10px;padding:2px 8px;border-radius:10px;border:1px solid}
+.tag-blue{background:var(--accent-bg);color:var(--accent-text);border-color:rgba(24,95,165,.2)}
+.tag-green{background:var(--green-bg);color:var(--green-text);border-color:rgba(59,109,17,.2)}
+.tag-amber{background:var(--amber-bg);color:var(--amber-text);border-color:rgba(133,79,11,.2)}
+.tag-purple{background:var(--purple-bg);color:var(--purple-text);border-color:rgba(60,52,137,.2)}
+.tag-gray{background:var(--surface2);color:var(--text3);border-color:var(--border)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:16px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:var(--surface2);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text2);z-index:10;line-height:1}
+.modal-close:hover{background:var(--border)}
+.modal-hero{width:100%;height:200px;background:var(--surface2);display:flex;align-items:center;justify-content:center;border-radius:16px 16px 0 0;overflow:hidden}
+.modal-hero img{width:100%;height:100%;object-fit:cover}
+.modal-hero-icon{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3)}
+.modal-hero-icon svg{width:44px;height:44px;opacity:.3}
+.modal-hero-icon p{font-size:12px}
+.modal-body{padding:24px}
+.modal-cat-badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.modal-title{font-size:20px;font-weight:600;color:var(--text);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--text3);margin-bottom:20px}
+.modal-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.modal-info-item{background:var(--surface2);border-radius:8px;padding:12px 14px}
+.modal-info-label{font-size:10px;color:var(--text3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+.modal-info-val{font-size:13px;font-weight:500;color:var(--text)}
+.modal-desc-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px}
+.modal-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px}
+.modal-photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.modal-photo{height:90px;background:var(--surface2);border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px dashed var(--border-strong);color:var(--text3);font-size:10px;cursor:pointer;transition:background .15s}
+.modal-photo:hover{background:var(--accent-bg);color:var(--accent-text)}
+.upload-instructions{font-size:11px;color:var(--text3);margin-top:10px;text-align:center;line-height:1.6}
+
+/* EXPERIENCE TIMELINE */
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent-text);flex-shrink:0}
+.tl-line{width:1px;flex:1;background:var(--border);margin-top:8px;min-height:24px}
+.tl-role{font-size:14px;font-weight:500;color:var(--text)}
+.tl-company{font-size:13px;color:var(--accent-text);margin-bottom:3px}
+.tl-date{font-size:11px;color:var(--text3);margin-bottom:8px}
+.tl-desc{font-size:13px;color:var(--text2);line-height:1.7}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.skill-item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.skill-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.si-blue{background:var(--accent-bg);color:var(--accent-text)}
+.si-green{background:var(--green-bg);color:var(--green-text)}
+.si-amber{background:var(--amber-bg);color:var(--amber-text)}
+.si-purple{background:var(--purple-bg);color:var(--purple-text)}
+.skill-name{font-size:13px;font-weight:500;color:var(--text)}
+.skill-level{font-size:11px;color:var(--text3)}
+
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.cert-item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.cert-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-bg);color:var(--accent-text);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cert-name{font-size:12px;font-weight:500;color:var(--text);line-height:1.4}
+.cert-org{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* CONTACT */
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:520px}
+.contact-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.contact-chip{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:13px;color:var(--text2);text-decoration:none;transition:all .15s}
+.contact-chip:hover{background:var(--accent-bg);color:var(--accent-text);border-color:rgba(24,95,165,.3)}
+.contact-chip svg{width:16px;height:16px;flex-shrink:0}
+
+/* FOOTER */
+footer{text-align:center;font-size:12px;color:var(--text3);padding:32px 0;border-top:1px solid var(--border);margin-top:48px}
+
+@media(max-width:600px){
+  .container{padding:0 16px 60px}
+  .projects-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .modal-info-grid{grid-template-columns:1fr}
+  .name{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-label">PMCM Portfolio · Karachi, Pakistan</div>
+</div>
+
+<div class="container">
+    <div class="name-row">
+    <div class="name">Muhammad Naveed Anwer</div>
+    <span class="badge badge-blue">Remote PM Available</span>
+    <span class="badge badge-green">PMI Member #4191381</span>
+  </div>
+  <div class="tagline">Senior Project Manager · 26+ years in Construction Management, Interior Fit-Out (PMCM) &amp; Planning Engineering<br>Double Silver Medallist · FIDIC Specialist · Dolmen Sky-Tower Karachi · Primavera P6 Expert</div>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Karachi, Pakistan
+    </div>
+    <div class="meta-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      naveedpmcm@gmail.com
+    </div>
+    <div class="meta-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +92 333-2368098
+    </div>
+    <div class="meta-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/naveedpmcm
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-num">26+</div><div class="stat-label">Years experience</div></div>
+    <div class="stat-card"><div class="stat-num">145,500+</div><div class="stat-label">Sqft fitout projects at Dolmen Skytower</div></div>
+    <div class="stat-card"><div class="stat-num">10+</div><div class="stat-label">Blue-chip clients</div></div>
+    <div class="stat-card"><div class="stat-num">2×</div><div class="stat-label">Silver medallist</div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchTab('projects',this)">🏗 Projects</button>
+    <button class="tab-btn" onclick="switchTab('experience',this)">📋 Experience</button>
+    <button class="tab-btn" onclick="switchTab('skills',this)">⚙ Skills</button>
+    <button class="tab-btn" onclick="switchTab('certs',this)">🎓 Certifications</button>
+    <button class="tab-btn" onclick="switchTab('contact',this)">✉ Contact</button>
+  </div>
+
+  <!-- PROJECTS TAB -->
+  <div id="tab-projects" class="tab-panel active">
+    <div class="filter-row" id="filter-row"></div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+
+  <!-- EXPERIENCE TAB -->
+  <div id="tab-experience" class="tab-panel">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-role">Project Manager</div>
+          <div class="tl-company">Shah Wali Synergy – PMCM</div>
+          <div class="tl-date">2009 – Present · 16+ years · Karachi, Pakistan</div>
+          <div class="tl-desc">Lead PM for high-value interior fit-out and construction management projects on behalf of multinational clients in Karachi's premier commercial towers. Full FIDIC contract administration, independent oversight, stakeholder reporting, and cost control. Delivered 145,500+ sqft across KOMATSU, Emirates, HBL, World Bank-IFC, Louis Dreyfus, Philip Morris, and IBM. Maintained Primavera P6 master programmes; produced weekly look-aheads and monthly progress reports. Verified contractor BOQs, interim payment applications, and final account settlements.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-role">Planning Engineer</div>
+          <div class="tl-company">Arshad Shahid Abdulla (Pvt.) Ltd.</div>
+          <div class="tl-date">2005 – 2009 · 4 years · Karachi &amp; Islamabad</div>
+          <div class="tl-desc">Led planning, scheduling, and progress tracking for architectural &amp; interior projects including Volkswagen Showroom, South City Hospital Clifton, OMV Pakistan Exploration Office Islamabad, and multiple residential developments. Standardised project management, cost, and contract documentation templates organisation-wide. Produced RFPs, schedule baselines, and project presentations.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-role">Surveyor cum Supervisor</div>
+          <div class="tl-company">Paragon Constructors (Pvt.) Ltd.</div>
+          <div class="tl-date">2002 – 2004 · Industrial Projects · Karachi</div>
+          <div class="tl-desc">Marmonyx Marble Factory (7 acres, Manghopir), Naveena Denim Unit (Korangi Industrial Area), Karachi Grains grain processing and rice godown facility at Port Qasim. Awarded Performance Award 2004–05 for Quality, Speed &amp; Client Satisfaction.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div>
+          <div class="tl-role">Finishing / Site Supervisor</div>
+          <div class="tl-company">Rehman Construction Co. &amp; Private Freelance</div>
+          <div class="tl-date">2000 – 2002 · Karachi</div>
+          <div class="tl-desc">Site supervision of interior design finishing works across multiple residential and commercial projects in Karachi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS TAB -->
+  <div id="tab-skills" class="tab-panel">
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-icon si-blue">🏗</div><div><div class="skill-name">PMCM</div><div class="skill-level">Expert · 16+ years</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-blue">📄</div><div><div class="skill-name">FIDIC Contracts</div><div class="skill-level">Expert administrator</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-amber">📊</div><div><div class="skill-name">Primavera P6</div><div class="skill-level">Expert · Certified Trainer</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-amber">📅</div><div><div class="skill-name">MS Project</div><div class="skill-level">Expert · Trainer</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-green">💰</div><div><div class="skill-name">EVM / Cost Control</div><div class="skill-level">Advanced</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-green">📋</div><div><div class="skill-name">BOQ Verification</div><div class="skill-level">Expert</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-purple">📐</div><div><div class="skill-name">AutoCAD</div><div class="skill-level">Advanced</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-purple">🧊</div><div><div class="skill-name">BIM Coordination</div><div class="skill-level">Reviewer level</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-blue">🤝</div><div><div class="skill-name">Stakeholder Mgmt</div><div class="skill-level">Expert · C-suite level</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-blue">🌐</div><div><div class="skill-name">Remote Collaboration</div><div class="skill-level">MS Teams · Zoom</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-green">🛡</div><div><div class="skill-name">HSE Compliance</div><div class="skill-level">Advanced</div></div></div>
+      <div class="skill-item"><div class="skill-icon si-amber">🏠</div><div><div class="skill-name">Real Estate Feasibility</div><div class="skill-level">Due Diligence</div></div></div>
+    </div>
+  </div>
+
+  <!-- CERTS TAB -->
+  <div id="tab-certs" class="tab-panel">
+    <div class="cert-grid">
+      <div class="cert-item"><div class="cert-icon">🏛</div><div><div class="cert-name">PMI Member</div><div class="cert-org">PMIID #4191381 · USA</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🥈</div><div><div class="cert-name">M.Tech — Silver Medallist</div><div class="cert-org">Construction Mgmt · Indus Institute · 2011</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🥈</div><div><div class="cert-name">B.Tech — Silver Medallist</div><div class="cert-org">Civil · Indus Institute · 2009</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🥇</div><div><div class="cert-name">Real Estate Diploma — Gold Medallist</div><div class="cert-org">PIBSAT · 2019</div></div></div>
+      <div class="cert-item"><div class="cert-icon">📜</div><div><div class="cert-name">Certified Project Manager</div><div class="cert-org">Professionals' Institute of Excellence · 2008</div></div></div>
+      <div class="cert-item"><div class="cert-icon">📜</div><div><div class="cert-name">Contracts Management</div><div class="cert-org">Pakistan Institute of Management · 2008</div></div></div>
+      <div class="cert-item"><div class="cert-icon">📊</div><div><div class="cert-name">Primavera P3 Scheduling</div><div class="cert-org">Skills Development Council · 2008</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🎓</div><div><div class="cert-name">Bachelor of Education</div><div class="cert-org">Allama Iqbal Open University · 2020–22</div></div></div>
+      <div class="cert-item"><div class="cert-icon">📜</div><div><div class="cert-name">Certified HR Manager</div><div class="cert-org">2008</div></div></div>
+      <div class="cert-item"><div class="cert-icon">⚡</div><div><div class="cert-name">Certified Electrician</div><div class="cert-org">3D Educators · 2024</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🏆</div><div><div class="cert-name">Performance Award</div><div class="cert-org">Paragon Constructors · 2004–05</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🏛</div><div><div class="cert-name">PIM Member</div><div class="cert-org">Pakistan Institute of Management</div></div></div>
+    </div>
+  </div>
+
+  <!-- CONTACT TAB -->
+  <div id="tab-contact" class="tab-panel">
+    <div class="contact-card">
+      <div class="tl-role" style="font-size:16px;margin-bottom:10px">Get in touch</div>
+      <div class="tl-desc">Available for senior Remote Project Manager / PMCM Consultant roles with international or Pakistan-based developers. Selected projects published in national and international Architecture &amp; Interior Design magazines. Full visual portfolio and references available on request.</div>
+      <div class="contact-row">
+        <a class="contact-chip" href="mailto:naveedpmcm@gmail.com">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          naveedpmcm@gmail.com
+        </a>
+        <a class="contact-chip" href="tel:+923332368098">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +92 333-2368098
+        </a>
+        <a class="contact-chip" href="https://linkedin.com/in/naveedpmcm/" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/naveedpmcm
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-hero" id="modal-hero"></div>
+    <div class="modal-body">
+      <div class="modal-cat-badge" id="modal-cat"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-sub" id="modal-sub"></div>
+      <div class="modal-info-grid" id="modal-info"></div>
+      <div class="modal-desc-title">Project overview</div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-desc-title">Project photographs</div>
+      <div class="modal-photo-grid" id="modal-photos"></div>
+      <div class="upload-instructions">To add photos: replace placeholder cards with &lt;img&gt; tags in the HTML, or drag images into your Notion page embed.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Muhammad Naveed Anwer · PMCM Specialist · Karachi, Pakistan · PMI #4191381
+</footer>
+
+<script>
+const projects = [
+  {id:1,title:"KOMATSU Office",sub:"23rd Floor, Dolmen Sky-Tower A",sqft:"10,000 sqft",year:"2026",cat:"Fit-Out",client:"KOMATSU Japan",role:"Construction Manager",tags:["blue"],desc:"High-specification office fit-out for KOMATSU Japan's Karachi operations on the 23rd floor of the iconic Dolmen Sky-Tower A. Full FIDIC contract administration, BOQ verification, site supervision, and client-side independent oversight from inception through handover."},
+  {id:2,title:"Armstrong Tyre Accommodation Building",sub:"Gharo, Sindh",sqft:"18,000 sqft · 3 Floors",year:"2025",cat:"Construction",client:"Armstrong Tyre",role:"Project Manager",tags:["amber"],desc:"Three-floor accommodation building for Armstrong Tyre's manufacturing facility in Gharo, Sindh. End-to-end project delivery including design coordination, procurement, site supervision, and handover. Managed all stakeholder communication and HSE compliance."},
+  {id:3,title:"Emirates Office & Travel Shop",sub:"GF & 34th Floors, Dolmen Sky-Tower A",sqft:"24,500 sqft · 2 Floors",year:"2024",cat:"Fit-Out",client:"Emirates Airlines",role:"Project Manager",tags:["blue"],desc:"Prestigious dual-floor fit-out for Emirates Airlines encompassing the ground floor Travel Shop retail space and executive offices on the 34th floor of Dolmen Sky-Tower A. High-end interior specifications with full FIDIC administration."},
+  {id:4,title:"HBL IFI – Habib Bank Limited",sub:"11th, 12th & 13th Floors, Dolmen Sky-Tower A",sqft:"60,000 sqft · 3 Floors",year:"2022",cat:"Fit-Out",client:"Habib Bank Limited",role:"Construction Manager",tags:["blue","purple"],desc:"Largest single fit-out project — 60,000 sqft across three floors for HBL's International Finance Institution division. Comprehensive FIDIC-based contract administration, independent quality assurance, variation order management, and milestone reporting to HBL's C-suite."},
+  {id:5,title:"Louis Dreyfus Company (LDC)",sub:"15th Floor, Dolmen Sky-Tower B",sqft:"10,000 sqft",year:"2022–23",cat:"Fit-Out",client:"Louis Dreyfus Company",role:"Construction Manager",tags:["blue"],desc:"Corporate fit-out for global commodities trader Louis Dreyfus Company's Karachi office on the 15th floor of Dolmen Sky-Tower B. Full project lifecycle management with rigorous cost control and quality oversight."},
+  {id:6,title:"IFC – World Bank",sub:"6th Floor, Bahria 3 Building",sqft:"10,000 sqft",year:"2015",cat:"Fit-Out",client:"World Bank / IFC",role:"Construction Manager",tags:["green"],desc:"Fit-out project for the International Finance Corporation (World Bank Group) at Bahria 3, Karachi. Independent client-side construction management with full documentation, progress reporting, and snagging programme."},
+  {id:7,title:"Philip Morris International (PMI)",sub:"Dolmen Harbor Front Building — 3 Floors",sqft:"34,000 sqft",year:"2012",cat:"Fit-Out",client:"Philip Morris International",role:"Construction Manager",tags:["blue"],desc:"Multi-floor corporate fit-out for Philip Morris International at Dolmen Harbor Front. Full construction management across three floors including MEP coordination, BOQ verification, and final account settlement."},
+  {id:8,title:"IBM BCRS",sub:"Orbit Trade Center, Karachi",sqft:"8,000 sqft",year:"2011",cat:"Fit-Out",client:"IBM Pakistan",role:"Project Manager",tags:["blue"],desc:"Technical office fit-out for IBM Business Continuity & Recovery Services at Orbit Trade Center. Managed all fit-out works including specialist IT infrastructure coordination, quality inspection, and client handover."},
+  {id:9,title:"Reckitt Benckiser Head Office",sub:"QM Tower, Karachi",sqft:"9,000 sqft",year:"2011",cat:"Fit-Out",client:"Reckitt Benckiser",role:"Construction Manager",tags:["amber"],desc:"Head office fit-out for Reckitt Benckiser Pakistan at QM Tower. Full construction management with detailed snagging, HSE compliance, and executive reporting throughout the project lifecycle."},
+  {id:11,title:"California Pizza Building",sub:"Khayaban-e-Shamsheer, Karachi",sqft:"7,000 sqft",year:"2010",cat:"Construction",client:"California Pizza",role:"Construction Manager",tags:["amber"],desc:"Full construction management for California Pizza's dedicated building on Khayaban-e-Shamsheer. Structural and finishing works with F&B-specific MEP and interior coordination."},
+  {id:13,title:"Infrastructure Development Project",sub:"Karachi — 109 Acres",sqft:"109 Acres",year:"2014–2021",cat:"Infrastructure",client:"Undisclosed Developer",role:"PM / Construction Manager",tags:["green"],desc:"Large-scale 109-acre infrastructure development project spanning seven years. Full project controls, Primavera P6 scheduling, contractor management, cost reporting, and client-side independent oversight."},
+  {id:17,title:"Marmonyx Marble Factory",sub:"Manghopir, Karachi",sqft:"7 Acres",year:"2002–04",cat:"Industrial",client:"Marmonyx",role:"Surveyor & Supervisor",tags:["amber"],desc:"State-of-the-art marble processing industrial unit — Phase I construction across 7 acres in the Marble Estate, Karachi. Full survey and site supervision works from foundation to handover."},
+  {id:18,title:"Naveena Denim Unit",sub:"Korangi Industrial Area, Karachi",sqft:"TBC",year:"2002–04",cat:"Industrial",client:"Naveena",role:"Surveyor & Supervisor",tags:["amber"],desc:"Textile mill survey works for Naveena Denim Unit in Korangi Industrial Area, including structural and facility measurement for the manufacturing plant."},
+  {id:19,title:"Karachi Grains",sub:"Port Qasim, Karachi",sqft:"TBC",year:"2002–04",cat:"Industrial",client:"Karachi Grains",role:"Surveyor & Supervisor",tags:["green"],desc:"Grain processing facility, metal structure shell, rice godown building, and boiler building construction at Port Qasim. Survey, measurement, and site supervision of all works."},
+  {id:20,title:"Private Residence A",sub:"DHA Phase, Karachi",sqft:"5,000 sqft",year:"2012",cat:"Residential",client:"Private Client",role:"Project Manager",tags:["purple"],desc:"High-end residential project in DHA Karachi. Full project management from concept through construction to interior fit-out and handover. One of 20+ private residences delivered."},
+  {id:21,title:"Private Residence B",sub:"Clifton, Karachi",sqft:"4,500 sqft",year:"2013",cat:"Residential",client:"Private Client",role:"Project Manager",tags:["purple"],desc:"Luxury residential project in Clifton with premium interior fit-out specifications. End-to-end project delivery including design coordination and contractor management."},
+  {id:22,title:"Private Residence C",sub:"Gulshan-e-Iqbal, Karachi",sqft:"3,800 sqft",year:"2014",cat:"Residential",client:"Private Client",role:"Project Manager",tags:["purple"],desc:"Residential construction and interior fit-out project in Gulshan-e-Iqbal. Full supervision, BOQ verification, and quality assurance throughout."},
+  {id:23,title:"Private Residence D",sub:"Defence, Karachi",sqft:"6,000 sqft",year:"2015",cat:"Residential",client:"Private Client",role:"Project Manager",tags:["purple"],desc:"Large-format residential project in Defence Housing Authority, Karachi. Managed complete construction and interior fit-out works with weekly client reporting."},
+  ];
+
+const catColors={
+  "Fit-Out":["#e6f1fb","#185fa5","rgba(24,95,165,.2)"],
+  "Construction":["#faeeda","#854f0b","rgba(133,79,11,.2)"],
+  "Industrial":["#faeeda","#854f0b","rgba(133,79,11,.2)"],
+  "Residential":["#eeedfe","#3c3489","rgba(60,52,137,.2)"],
+  "Infrastructure":["#eaf3de","#3b6d11","rgba(59,109,17,.2)"],
+};
+
+const tagClass={blue:"tag-blue",green:"tag-green",amber:"tag-amber",purple:"tag-purple"};
+const catIcon={
+  "Fit-Out":`<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
+  "Construction":`<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 20h20M4 20V10l8-7 8 7v10"/></svg>`,
+  "Industrial":`<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 20h20M4 20V8l5-5 5 5 5-5v12"/></svg>`,
+  "Residential":`<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>`,
+  "Infrastructure":`<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 20h16M4 20v-4M20 20v-4M4 16H2M20 16h2M8 16V8M16 16V8M12 16V4M8 8H6M16 8h2M12 4h-2M12 4h2"/></svg>`,
+};
+
+const categories=["All",...new Set(projects.map(p=>p.cat))];
+let activeFilter="All";
+
+function renderFilters(){
+  document.getElementById("filter-row").innerHTML=
+    categories.map(c=>`<button class="filter-btn${c===activeFilter?" active":""}" onclick="filterProjects('${c}')">${c}</button>`).join("");
+}
+
+function renderProjects(){
+  const list=activeFilter==="All"?projects:projects.filter(p=>p.cat===activeFilter);
+  document.getElementById("projects-grid").innerHTML=list.map(p=>{
+    const tc=tagClass[p.tags[0]]||"tag-gray";
+    return `<div class="proj-card" onclick="openModal(${p.id})">
+      <div class="proj-img">
+        <span class="proj-num">#${p.id}</span>
+        <div class="proj-img-icon">${catIcon[p.cat]||""}<span>Add photo</span></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-sub">${p.sub} · ${p.sqft}</div>
+        <div class="proj-tags">
+          <span class="proj-tag ${tc}">${p.cat}</span>
+          <span class="proj-tag tag-gray">${p.year}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function filterProjects(cat){
+  activeFilter=cat;
+  renderFilters();
+  renderProjects();
+}
+
+function openModal(id){
+  const p=projects.find(x=>x.id===id);
+  if(!p)return;
+  const cc=catColors[p.cat]||["#f2f2f0","#555","transparent"];
+  document.getElementById("modal-hero").innerHTML=`<div class="modal-hero-icon" style="background:${cc[0]};width:100%;height:100%;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:${cc[1]}">${catIcon[p.cat]||""}<p style="font-size:13px;font-weight:500">Photo placeholder — upload your project image</p></div>`;
+  document.getElementById("modal-cat").innerHTML=`<span style="background:${cc[0]};color:${cc[1]};border:1px solid ${cc[2]};font-size:11px;padding:3px 11px;border-radius:20px;font-weight:500">${p.cat}</span>`;
+  document.getElementById("modal-title").textContent=p.title;
+  document.getElementById("modal-sub").textContent=`${p.sub} · ${p.sqft}`;
+  document.getElementById("modal-info").innerHTML=`
+    <div class="modal-info-item"><div class="modal-info-label">Year</div><div class="modal-info-val">${p.year}</div></div>
+    <div class="modal-info-item"><div class="modal-info-label">Client</div><div class="modal-info-val">${p.client}</div></div>
+    <div class="modal-info-item"><div class="modal-info-label">Role</div><div class="modal-info-val">${p.role}</div></div>
+    <div class="modal-info-item"><div class="modal-info-label">Area</div><div class="modal-info-val">${p.sqft}</div></div>`;
+  document.getElementById("modal-desc").textContent=p.desc;
+  document.getElementById("modal-photos").innerHTML=
+    Array(6).fill(0).map((_,i)=>`<div class="modal-photo">📷 Photo ${i+1}</div>`).join("");
+  document.getElementById("modal-overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function closeModal(e){
+  if(e.target===document.getElementById("modal-overlay"))closeModalBtn();
+}
+function closeModalBtn(){
+  document.getElementById("modal-overlay").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+function switchTab(tab,btn){
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("tab-"+tab).classList.add("active");
+  if(btn)btn.classList.add("active");
+}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModalBtn()});
+
+renderFilters();
+renderProjects();
+</script>
+</body>
+</html>
